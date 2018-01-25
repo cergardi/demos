@@ -1,3 +1,5 @@
+CREATE DATABASE demousuarioext;
+
 /* Crear Tabla USUARIOS */
 create table USUARIOS (
    id INTEGER NOT NULL AUTO_INCREMENT,
