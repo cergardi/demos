@@ -3,6 +3,8 @@ package com.example.demo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.Usuario;
@@ -54,5 +56,11 @@ public class UsuarioServiceImpl implements UsuarioService{
     public boolean isUsuarioExist(Usuario usuario) {
         return findByName(usuario.getNombre()) != null;
     }
+
+	@Override
+	public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

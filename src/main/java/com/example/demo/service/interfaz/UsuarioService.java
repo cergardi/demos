@@ -9,7 +9,7 @@ import com.example.demo.dto.Usuario;
 
 
 @Service
-public interface UsuarioService {
+public interface UsuarioService extends  org.springframework.security.core.userdetails.UserDetailsService{
 		
 	@Transactional
 	Usuario findById(Long id);

@@ -1,6 +1,6 @@
 /* Crear Tabla USUARIOS */
 create table USUARIOS (
-   id BIGINT NOT NULL AUTO_INCREMENT,
+   id INTEGER NOT NULL AUTO_INCREMENT,
    nombre VARCHAR(30) NOT NULL,
    apellidos VARCHAR(60) NOT NULL,
    edad  INTEGER NOT NULL,
