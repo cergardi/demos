@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class OrdersController {
     @ApiOperation(value = "listAllUsers", nickname = "listAllUsers", response = ResponseEntity.class)
 	@ApiResponse(code = 200, message = "Petición Correcta", response = ResponseEntity.class)
     @RequestMapping(value = "/user/", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
     public ResponseEntity<List<Usuario>> listAllUsers() {
         List<Usuario> listaUsuarios = usuarioService.findAllUsuarios();
         if (listaUsuarios.isEmpty()) {
@@ -47,6 +49,7 @@ public class OrdersController {
     @ApiOperation( value = "getUsuario", nickname = "getUsuario", response = ResponseEntity.class)
 	@ApiResponse(code = 200, message = "Petición Correcta", response = List.class)
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
     public ResponseEntity<?> getUsuario(@PathVariable("id") long id) {
         logger.info("Buscando usuario con id {}", id);
         Usuario usuarios = usuarioService.findById(id);
@@ -62,6 +65,7 @@ public class OrdersController {
     @ApiOperation(value = "createUsuario", nickname = "createUsuario", response = ResponseEntity.class)
 	@ApiResponse(code = 200, message = "Petición Correcta", response = ResponseEntity.class)
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario, UriComponentsBuilder ucBuilder) {
         logger.info("Creando usuario : {}", usuario);
  
@@ -82,6 +86,7 @@ public class OrdersController {
     @ApiOperation(value = "updateUsuario", nickname = "updateUsuario", response = ResponseEntity.class)
 	@ApiResponse(code = 200, message = "Usuario Actualizado", response = ResponseEntity.class)
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
+    @PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseEntity<?> updateUsuario(@PathVariable("id") long id, @RequestBody Usuario usuario) {
         logger.info("Actualizando usuario con id {}", id);
  
@@ -106,6 +111,7 @@ public class OrdersController {
     @ApiOperation(value = "deleteUsuario", nickname = "deleteUsuario", response = ResponseEntity.class)
 	@ApiResponse(code = 200, message = "Usuario borrado", response = ResponseEntity.class)
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseEntity<?> deleteUsuario(@PathVariable("id") long id) {
         logger.info("Borrar usuario con id {}", id);
  
@@ -121,6 +127,7 @@ public class OrdersController {
  
     // Borrar todos los usuarios
     @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseEntity<Usuario> deleteAllUsers() {
         logger.info("Borrar todos los usuarios");
  
