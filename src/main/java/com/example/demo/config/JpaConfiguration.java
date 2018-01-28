@@ -38,6 +38,18 @@ public class JpaConfiguration {
  
     @Value("${datasource.sampleapp.maxPoolSize:10}")
     private int maxPoolSize;
+    
+    @Value("${datasource.sampleapp.username:username}")
+    private String username;
+    
+    @Value("${datasource.sampleapp.password:password}")
+    private String password;
+    
+    @Value("${datasource.sampleapp.url:url}")
+    private String url;
+    
+    @Value("${datasource.sampleapp.driverClassName:driverClassName}")
+    private String driverClassName;
  
     /*
      * Populate SpringBoot DataSourceProperties object directly from application.yml 
@@ -52,17 +64,17 @@ public class JpaConfiguration {
     }
  
     /*
-     * Configure HikariCP pooled DataSource.
+     * Configurar pool DataSource.
      */
     @Bean
     public DataSource dataSource() {
         DataSourceProperties dataSourceProperties = dataSourceProperties();
             HikariDataSource dataSource = (HikariDataSource) DataSourceBuilder
                     .create(dataSourceProperties.getClassLoader())
-                    .driverClassName(dataSourceProperties.getDriverClassName())
-                    .url(dataSourceProperties.getUrl())
-                    .username(dataSourceProperties.getUsername())
-                    .password(dataSourceProperties.getPassword())
+                    .driverClassName(driverClassName)
+                    .url(url)
+                    .username(username)
+                    .password(password)
                     .type(HikariDataSource.class)
                     .build();
             dataSource.setMaximumPoolSize(maxPoolSize);
