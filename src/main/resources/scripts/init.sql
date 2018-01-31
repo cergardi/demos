@@ -1,5 +1,10 @@
 CREATE DATABASE demousuarioext;
 
+
+create user 'cergardi' identified by 'password';
+
+grant all on demousuarioext.* to 'cergardi';
+
 /* Crear tabla de roles de la aplicación */
 CREATE TABLE app_role (
   id bigint(20) NOT NULL AUTO_INCREMENT,
