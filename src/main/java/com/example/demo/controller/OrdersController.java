@@ -124,14 +124,5 @@ public class OrdersController {
         return new ResponseEntity<Usuario>(HttpStatus.NO_CONTENT);
     }
  
-//    // Borrar todos los usuarios
-//    @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
-//    @PreAuthorize("hasAuthority('ADMIN_USER')")
-//    public ResponseEntity<Usuario> deleteAllUsers() {
-//        logger.info("Borrar todos los usuarios");
-// 
-//        usuarioService.deleteAllUsuarios();
-//        return new ResponseEntity<Usuario>(HttpStatus.NO_CONTENT);
-//    }
  
 }

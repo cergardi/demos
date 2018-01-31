@@ -139,16 +139,3 @@ public class YamlFileApplicationContextInitializer implements ApplicationContext
         }
     }
 }
-	  
-//	@Override
-//	  public void initialize(ConfigurableApplicationContext applicationContext) {
-//	    try {
-//	        Resource resource = applicationContext.getResource("classpath:application.yml");
-//	        YamlPropertySourceLoader sourceLoader = new YamlPropertySourceLoader();
-//	        PropertySource<?> yamlTestProperties = sourceLoader.load("application.yml", resource, null);
-//	        applicationContext.getEnvironment().getPropertySources().addFirst(yamlTestProperties);
-//	    } catch (IOException e) {
-//	        throw new RuntimeException(e);
-//	    }
-//	  }
-//}

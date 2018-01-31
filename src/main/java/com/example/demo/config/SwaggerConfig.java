@@ -24,6 +24,10 @@ import springfox.documentation.schema.WildcardType;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.AuthorizationScope;
+import springfox.documentation.service.GrantType;
+import springfox.documentation.service.ImplicitGrant;
+import springfox.documentation.service.LoginEndpoint;
+import springfox.documentation.service.OAuth;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
@@ -70,29 +74,39 @@ public class SwaggerConfig {
 //	        .enableUrlTemplating(true).apiInfo(apiInfo());
 //	  }
 
-	  @Autowired
-	  private TypeResolver typeResolver;
-
-	  private ApiKey apiKey() {
-	    return new ApiKey("mykey", "api_key", "header");
-	  }
-
-	  private SecurityContext securityContext() {
-	    return SecurityContext.builder()
-	        .securityReferences(defaultAuth())
-	        .forPaths(PathSelectors.regex("/swagger.*"))
-	        .build();
-	  }
-
-	  List<SecurityReference> defaultAuth() {
-	    AuthorizationScope authorizationScope
-	        = new AuthorizationScope("global", "accessEverything");
-	    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
-	    authorizationScopes[0] = authorizationScope;
-	    return newArrayList(
-	        new SecurityReference("mykey", authorizationScopes));
-	  }
-
+//	  @Autowired
+//	  private TypeResolver typeResolver;
+//
+//	  private ApiKey apiKey() {
+//	    return new ApiKey("mykey", "api_key", "header");
+//	  }
+//
+//	  private SecurityContext securityContext() {
+//	    return SecurityContext.builder()
+//	        .securityReferences(defaultAuth())
+//	        .forPaths(PathSelectors.regex("/swagger.*"))
+//	        .build();
+//	  }
+//
+//	  List<SecurityReference> defaultAuth() {
+//	    AuthorizationScope authorizationScope
+//	        = new AuthorizationScope("global", "accessEverything");
+//	    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+//	    authorizationScopes[0] = authorizationScope;
+//	    return newArrayList(
+//	        new SecurityReference("mykey", authorizationScopes));
+//	  }
+//	  private OAuth securitySchema() {
+//		    //AuthorizationScope authorizationScope = new AuthorizationScope(authorizationScopeGlobal, authorizationScopeGlobal);
+//		    LoginEndpoint loginEndpoint = new LoginEndpoint("http://localhost:8080/DemoApplication/swagger-ui.html");
+//		    GrantType grantType = new ImplicitGrant(loginEndpoint, "access_token");
+//		    new Password
+//		    List s = new ArrayList();
+//		    //s.add(authorizationScope);
+//		    List d = new ArrayList();
+//		    d.add(grantType);
+//		    return new OAuth(securitySchemaOAuth2, s, d);
+//		}
 //	  @Bean
 //	  SecurityConfiguration security() {
 //	    return SecurityConfigurationBuilder.builder()

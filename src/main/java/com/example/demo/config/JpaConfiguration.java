@@ -64,21 +64,21 @@ public class JpaConfiguration {
     }
  
     /*
-     * Configurar pool DataSource.
+     * Configurar DataSource.
      */
     @Bean
     public DataSource dataSource() {
         DataSourceProperties dataSourceProperties = dataSourceProperties();
-            HikariDataSource dataSource = (HikariDataSource) DataSourceBuilder
-                    .create(dataSourceProperties.getClassLoader())
-                    .driverClassName(driverClassName)
-                    .url(url)
-                    .username(username)
-                    .password(password)
-                    .type(HikariDataSource.class)
-                    .build();
-            dataSource.setMaximumPoolSize(maxPoolSize);
-            return dataSource;
+        DataSource dataSource =  DataSourceBuilder
+                .create(dataSourceProperties.getClassLoader())
+                .driverClassName(driverClassName)
+                .url(url)
+                .username(username)
+                .password(password)
+                .type(HikariDataSource.class)
+                .build();
+        //dataSource.setMaximumPoolSize(maxPoolSize);
+        return dataSource;
     }
  
     /*
