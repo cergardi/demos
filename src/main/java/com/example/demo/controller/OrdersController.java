@@ -22,7 +22,6 @@ import com.example.demo.service.interfaz.UsuarioService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 
-	 
 @RestController
 @RequestMapping("/api")
 public class OrdersController {
@@ -33,7 +32,7 @@ public class OrdersController {
     UsuarioService usuarioService;
  
     // Listado Usuarios
-    @ApiOperation(value = "listAllUsers", nickname = "listAllUsers", response = ResponseEntity.class)
+    @ApiOperation(value = "Busca todos los usuarios", nickname = "listAllUsers", response = List.class)
 	@ApiResponse(code = 200, message = "Petición Correcta", response = ResponseEntity.class)
     @RequestMapping(value = "/user/", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
@@ -46,11 +45,11 @@ public class OrdersController {
     }
  
     // Obtener Usuario por identificador
-    @ApiOperation( value = "getUsuario", nickname = "getUsuario", response = ResponseEntity.class)
+    @ApiOperation( value = "Obtiene un usuario filtrado por un identificador", nickname = "getUsuario", response = Usuario.class)
 	@ApiResponse(code = 200, message = "Petición Correcta", response = List.class)
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN_USER') or hasAuthority('STANDARD_USER')")
-    public ResponseEntity<?> getUsuario(@PathVariable("id") long id) {
+    public ResponseEntity<Usuario> getUsuario(@PathVariable("id") long id) {
         logger.info("Buscando usuario con id {}", id);
         Usuario usuarios = usuarioService.findById(id);
         if (usuarios == null) {
@@ -62,11 +61,11 @@ public class OrdersController {
     }
  
     // Crear usuario
-    @ApiOperation(value = "createUsuario", nickname = "createUsuario", response = ResponseEntity.class)
-	@ApiResponse(code = 200, message = "Petición Correcta", response = ResponseEntity.class)
+    @ApiOperation(value = "Crea un usuario", nickname = "createUsuario", response = String.class)
+	@ApiResponse(code = 200, message = "Petición Correcta", response = String.class)
     @RequestMapping(value = "/user/", method = RequestMethod.POST)
     @PreAuthorize("hasAuthority('ADMIN_USER')")
-    public ResponseEntity<?> createUsuario(@RequestBody Usuario usuario, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<String> createUsuario(@RequestBody Usuario usuario, UriComponentsBuilder ucBuilder) {
         logger.info("Creando usuario : {}", usuario);
  
 	        if (usuarioService.isUsuarioExist(usuario)) {
@@ -83,8 +82,8 @@ public class OrdersController {
     }
  
     // Actualizar usuario
-    @ApiOperation(value = "updateUsuario", nickname = "updateUsuario", response = ResponseEntity.class)
-	@ApiResponse(code = 200, message = "Usuario Actualizado", response = ResponseEntity.class)
+    @ApiOperation(value = "Actualiza un usuario", nickname = "updateUsuario", response = Usuario.class)
+	@ApiResponse(code = 200, message = "Usuario Actualizado", response = Usuario.class)
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     @PreAuthorize("hasAuthority('ADMIN_USER')")
     public ResponseEntity<?> updateUsuario(@PathVariable("id") long id, @RequestBody Usuario usuario) {
@@ -108,11 +107,11 @@ public class OrdersController {
     }
  
     // Borrar usuario
-    @ApiOperation(value = "deleteUsuario", nickname = "deleteUsuario", response = ResponseEntity.class)
+    @ApiOperation(value = "Borra un usuario", nickname = "deleteUsuario", response = Usuario.class)
 	@ApiResponse(code = 200, message = "Usuario borrado", response = ResponseEntity.class)
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
     @PreAuthorize("hasAuthority('ADMIN_USER')")
-    public ResponseEntity<?> deleteUsuario(@PathVariable("id") long id) {
+    public ResponseEntity<Usuario> deleteUsuario(@PathVariable("id") long id) {
         logger.info("Borrar usuario con id {}", id);
  
         Usuario usuario = usuarioService.findById(id);
@@ -125,14 +124,14 @@ public class OrdersController {
         return new ResponseEntity<Usuario>(HttpStatus.NO_CONTENT);
     }
  
-    // Borrar todos los usuarios
-    @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
-    @PreAuthorize("hasAuthority('ADMIN_USER')")
-    public ResponseEntity<Usuario> deleteAllUsers() {
-        logger.info("Borrar todos los usuarios");
- 
-        usuarioService.deleteAllUsuarios();
-        return new ResponseEntity<Usuario>(HttpStatus.NO_CONTENT);
-    }
+//    // Borrar todos los usuarios
+//    @RequestMapping(value = "/user/", method = RequestMethod.DELETE)
+//    @PreAuthorize("hasAuthority('ADMIN_USER')")
+//    public ResponseEntity<Usuario> deleteAllUsers() {
+//        logger.info("Borrar todos los usuarios");
+// 
+//        usuarioService.deleteAllUsuarios();
+//        return new ResponseEntity<Usuario>(HttpStatus.NO_CONTENT);
+//    }
  
 }

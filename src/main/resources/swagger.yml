@@ -1,0 +1,67 @@
+swagger: '2.0'
+
+info:
+  title: BakPak API
+  description: BakPak server API
+  version: '1.0.0'
+
+host: localhost:8080
+basePath: /api/user
+
+schemes:
+  - http
+  - https
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
+securityDefinitions:
+  basicPassword:
+    type: oauth2
+    flow: password
+    tokenUrl: http://localhost:8080/DemoApplication/oauth/token
+    scopes:
+      s1: Scope 1
+      s2: Scope 2
+
+paths:
+  /token:
+    get:
+      tags:
+        - auth
+      summary: Get an authentication token
+      description: Get an authentication token
+      operationId: GetToken
+      responses:
+        '200':
+          description: ""
+        default:
+          description: Operation failed.
+  /test:
+    get:
+      summary: Test endpoint
+      description: Test endpoint
+      responses:
+        '200':
+          description: ""
+        default:
+          description: Operation failed.
+      security:
+        - basicPassword:
+          - s1
+          - s2  
+
+definitions:
+  Credentials:
+    properties:
+      type:
+        type: string
+      username:
+        type: string
+      password:
+        type: string
+      token:
+        type: string
